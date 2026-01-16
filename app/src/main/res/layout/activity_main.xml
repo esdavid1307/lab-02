@@ -37,7 +37,7 @@
             android:text="DELETE CITY" />
     </LinearLayout>
 
-    <!-- The following line is from chatgpt, "how to make button invisible till i need it in xml?", 2026-01-16
+    <!-- The following line is from chatgpt, "how to make button invisible till i need it in xml then in java?", 2026-01-16
     Example given : android:visibility="gone"
     inputBox.setVisibility(View.VISIBLE);
     inputBox.setVisibility(View.GONE);

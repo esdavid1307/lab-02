@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
     private LinearLayout inputBox;
     private EditText cityInput;
     private Button confirmButton;
-
+    private int selectedPosition = -1; // 0 selected cities
 
 
 
@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
 
                     public void onClick(View v) {
 
-                        //The following line is from chatgpt, "how to make button invisible till i need it in xml?", 2026-01-16
+                        //The following line is from chatgpt, "how to make button invisible till i need it in xml then use it in java?", 2026-01-16
                         //    Example given : android:visibility="gone"
                         //    inputBox.setVisibility(View.VISIBLE);
                         //    inputBox.setVisibility(View.GONE);
@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {String newCity = cityInput.getText().toString().trim();
                         if (newCity.isEmpty()) {
-                            Toast.makeText(MainActivity.this, "Please enter a city", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MainActivity.this, "Enter a city", Toast.LENGTH_SHORT).show();
                             return;
                         }
                         dataList.add(newCity); // add to the data list
@@ -100,6 +100,31 @@ public class MainActivity extends AppCompatActivity {
                 }
         );
 
+        // select city
+        cityList.setOnItemClickListener(
+                new android.widget.AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(android.widget.AdapterView<?> parent, View view, int position, long id) {
+                        selectedPosition = position; // store the position of the selected city
+                        Toast.makeText(MainActivity.this, "Selected  " + dataList.get(position), Toast.LENGTH_SHORT).show();}
+                }
+        );
 
+        // delete city
+        removeButton.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (selectedPosition == -1) {
+                            Toast.makeText(MainActivity.this, "Select a city to delete", Toast.LENGTH_SHORT).show();
+                            return;}
+                        dataList.remove(selectedPosition);
+                        cityAdapter.notifyDataSetChanged();
+
+                        // reset selection
+                        selectedPosition = -1;}
+                }
+        );
     }
 }
+
