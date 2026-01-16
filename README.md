@@ -13,6 +13,10 @@ Example given :
 ```inputBox.setVisibility(View.VISIBLE);```
 ```inputBox.setVisibility(View.GONE);'''```
 
+## Path to Lab
+
+app/src/main/java/com/example/myapplication/MainActivity.java
+
 ## Verbal Collaboration
 
 | Student Name | CCID      |
