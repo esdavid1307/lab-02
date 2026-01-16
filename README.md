@@ -2,12 +2,16 @@
 
 ## Student Details
 
-- **Full Name:** `<Enter name>`
-- **CCID:** `<Enter ccid>`
+- **Full Name:** `Edwin Shaiju David`
+- **CCID:** `esdavid`
 
 ## References and Resources
 
-List any resources used here, or simply put `N/A` if not applicable.
+The following line is from chatgpt, "how to make button invisible till i need it in xml then use it in java?", 2026-01-16
+Example given : 
+```android:visibility="gone"```
+```inputBox.setVisibility(View.VISIBLE);```
+```inputBox.setVisibility(View.GONE);'''```
 
 ## Verbal Collaboration
 
