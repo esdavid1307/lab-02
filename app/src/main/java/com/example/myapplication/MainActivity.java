@@ -4,7 +4,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,7 +22,12 @@ public class MainActivity extends AppCompatActivity {
     private ListView cityList;
     private ArrayAdapter<String> cityAdapter;
     private ArrayList<String> dataList;
-    private Button button;
+    private Button addButton;
+    private Button removeButton;
+    private LinearLayout inputBox;
+    private EditText cityInput;
+    private Button confirmButton;
+
 
 
 
@@ -39,28 +47,58 @@ public class MainActivity extends AppCompatActivity {
         String[] cities = {
                 "Edmonton",
                 "Vancouver",
-                "Moscow",
-                "Sydney",
-                "Berlin",
-                "Vienna",
-                "Tokyo",
-                "Beijing",
-                "Osaka",
-                "New Delhi"
         };
-        dataList = new ArrayList<>();
-        dataList.addAll(Arrays.asList(cities));
 
-        cityAdapter = new ArrayAdapter<>(this, R.layout.content, dataList);
+        //create arraylist to add or remove cities
+        dataList = new ArrayList<>();
+        dataList.addAll(Arrays.asList(cities)); // copy the array to the list
+
+
+        cityAdapter = new ArrayAdapter<>(this, R.layout.content, R.id.content_view, dataList);
         cityList.setAdapter(cityAdapter);
 
-        button = findViewById(R.id.button_add);
+        addButton = findViewById(R.id.button_add);
+        removeButton = findViewById(R.id.button_remove);
 
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-            }
-        });
+        inputBox = findViewById(R.id.input_box);
+        cityInput = findViewById(R.id.city_input);
+        confirmButton = findViewById(R.id.button_confirm);
+
+        //add city
+        addButton.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+
+                    public void onClick(View v) {
+
+                        //The following line is from chatgpt, "how to make button invisible till i need it in xml?", 2026-01-16
+                        //    Example given : android:visibility="gone"
+                        //    inputBox.setVisibility(View.VISIBLE);
+                        //    inputBox.setVisibility(View.GONE);
+
+                        inputBox.setVisibility(View.VISIBLE); // show input area when button clicken
+                        cityInput.setText(""); // clear previous text
+                        cityInput.requestFocus();
+                    }
+                }
+        );
+        // confirm button
+        confirmButton.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {String newCity = cityInput.getText().toString().trim();
+                        if (newCity.isEmpty()) {
+                            Toast.makeText(MainActivity.this, "Please enter a city", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        dataList.add(newCity); // add to the data list
+                        cityAdapter.notifyDataSetChanged();
+
+                        inputBox.setVisibility(View.GONE);
+                        cityInput.setText("");
+                    }
+                }
+        );
 
 
     }
